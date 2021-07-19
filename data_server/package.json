@@ -1,0 +1,63 @@
+{
+  "name": "webbbs.server",
+  "sysCode": "webbbs",
+  "port": 130,
+  "private": true,
+  "scripts": {
+    "DEV": "cross-env NODE_ENV=DEV nodemon app",
+    "DEVETS": "cross-env NODE_ENV=DEVETS nodemon app",
+    "PRDETS": "cross-env NODE_ENV=PRDETS nodemon app",
+    "PRD": "cross-env NODE_ENV=PRD node app"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "bluebird": "^3.5.0",
+    "co-body": "^5.1.1",
+    "cross-env": "^7.0.2",
+    "elasticsearch": "^16.7.1",
+    "ioredis": "^4.27.3",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.2.0",
+    "koa-body": "^4.0.4",
+    "koa-cookie": "^1.0.0",
+    "koa-router": "^7.1.1",
+    "koa-session": "^5.0.0",
+    "koa2-cors": "^2.0.3",
+    "lodash": "^4.17.4",
+    "log4js": "^3.0.6",
+    "moment": "2.15.1",
+    "mongoosastic": "^4.6.0",
+    "mongoose": "^5.10.0",
+    "mysql": "^2.18.1",
+    "node-schedule": "^2.0.0",
+    "node-uuid": "^1.4.8",
+    "request": "2.79.0",
+    "twix": "0.9.0",
+    "uuid": "^3.0.1"
+  },
+  "devDependencies": {},
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "target": {
+            "node": "8.1"
+          }
+        }
+      ],
+      "react",
+      "stage-0"
+    ],
+    "plugins": [
+      "transform-decorators-legacy"
+    ]
+  }
+}

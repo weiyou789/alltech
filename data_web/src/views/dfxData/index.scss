@@ -1,0 +1,46 @@
+.question-list ul {
+    list-style: none;
+}
+.question-list li{
+    list-style: none;
+    padding-left: 0;
+    border-bottom: 1px solid #F0F2F5;
+    margin-bottom: 20px;
+}
+.question-list li h2{
+    font-size: 16px;
+    color: #303133;
+    line-height: 24px;
+    padding-bottom: 10px;
+}
+.question-list li .opts{
+    display: flex;
+    margin-bottom: 30px;
+}
+.question-list li .btn{
+    margin-right: 20px;
+}
+
+.question-list li .select{
+    margin-right: 20px;
+}
+
+.question-list li .inputText{
+    margin-left: 20px;
+    width: 300px;
+}
+
+.question-list li .main{
+    position: relative;
+    height: 600px;
+}
+
+.question-list li .main2{
+    position: relative;
+    height: 600px;
+}
+
+.question-list li .main3{
+    position: relative;
+    height: 600px;
+}

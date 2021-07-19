@@ -1,0 +1,25 @@
+.menu-wrapper {
+    background: #ffffff;
+    height: 60px;
+    margin-bottom: 10px;
+}
+.menu-wrapper .main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+.menu-wrapper .main .logo {
+    width: 140px;
+}
+.menu-wrapper .ant-menu-horizontal{
+    border-bottom: none;
+}
+.menu-wrapper .menu-icon {
+    width: 24px;
+    margin-right: 10px;
+}
+.menu-wrapper .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu:hover, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-active, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-active, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-open, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-open, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected{
+    color: #303133;
+    border-bottom: 2px solid #303133;
+}
