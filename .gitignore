@@ -3,6 +3,7 @@ node_modules
 **/log
 **/dist
 /public/mock
+/data_server/config.js
 
 # local env files
 .env.local
