@@ -73,7 +73,7 @@ app.use(koabody({multipart: true,formidable: {
     }
     logger.info(`use: ${ new Date() - requestStartTime }ms\treturn: ${JSON.stringify(ctx.response.body)}`);
 }).use(router.routes()).use(router.allowedMethods()).on('error', app.onerror);
-app.listen(pkg.port,()=>{
+app.listen(pkg.port,'0.0.0.0',()=>{
     logger.info(`${pkg.name} listen at ${IPv4}:${pkg.port} in ${process.env.NODE_ENV} , pid is ${process.pid}`)
 });
 
