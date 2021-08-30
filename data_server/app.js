@@ -71,7 +71,7 @@ app.use(koabody({multipart: true,formidable: {
         logger.info(`${ctx.method}\t${ctx.url}\t${JSON.stringify(ctx.request.body)}`);
         await next();
     }
-    // logger.info(`use: ${ new Date() - requestStartTime }ms\treturn: ${JSON.stringify(ctx.response.body)}`);
+    logger.info(`use: ${ new Date() - requestStartTime }ms\treturn: ${JSON.stringify(ctx.response.body)}`);
 }).use(router.routes()).use(router.allowedMethods()).on('error', app.onerror);
 app.listen(pkg.port,()=>{
     logger.info(`${pkg.name} listen at ${IPv4}:${pkg.port} in ${process.env.NODE_ENV} , pid is ${process.pid}`)
