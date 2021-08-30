@@ -13,6 +13,7 @@ import jwt from 'jsonwebtoken'
 import moment from 'moment'
 import { OrderStore } from '../store'
 import redis from '../utils/redis'
+import authCheck from '../utils/authCheck'
 
 const getOrderList = async (ctx,next) => {
     try {
@@ -192,8 +193,8 @@ const getOrderGroupEveryRepBuyMtd = async (ctx,next) => {
 
 module.exports = function (app) {
     // app.get("/server/getOrderList", getOrderList);
-    app.get("/server/getOrderRepBuyRateAct", getOrderRepBuyRateAct);
-    app.get("/server/getOrderEveryRepBuyRateAct", getOrderEveryRepBuyRateAct);
-    app.get("/server/getEveryMonthRepBuyAct", getEveryMonthRepBuyAct);
-    app.get("/server/getOrderGroupEveryRepBuyAct", getOrderGroupEveryRepBuyMtd);
+    app.get("/server/getOrderRepBuyRateAct",authCheck, getOrderRepBuyRateAct);
+    app.get("/server/getOrderEveryRepBuyRateAct",authCheck, getOrderEveryRepBuyRateAct);
+    app.get("/server/getEveryMonthRepBuyAct",authCheck, getEveryMonthRepBuyAct);
+    app.get("/server/getOrderGroupEveryRepBuyAct",authCheck, getOrderGroupEveryRepBuyMtd);
 };

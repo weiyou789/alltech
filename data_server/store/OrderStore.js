@@ -12,7 +12,7 @@ function orderEveryRepBuy(startTime, endTime) {
     return 'SELECT member_code FROM t_child_order WHERE child_order_status in (20,30,40,60,70)'+
         'AND merchant_code = "1ed0528595197975fa72f5ec8f9e0c62"'+
         `AND pay_time BETWEEN '${startTime}' AND '${endTime}'`+
-        'GROUP BY member_code HAVING count( member_code ) > 1'
+            'GROUP BY member_code HAVING count( member_code ) > 1'
 }
 
 function orderGroupEveryRepBuy(startMonth, endMonth,rep) {

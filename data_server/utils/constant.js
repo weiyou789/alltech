@@ -20,7 +20,7 @@ module.exports = {
     }
     , "NO_AUTH": {
         code: -5
-        , desc: '无权限'
+        , desc: '无权限,请登录'
     }
     , "NO_LOGIN": {
         code: 2

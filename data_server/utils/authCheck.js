@@ -1,16 +1,19 @@
 const constant = require("./constant");
-import { UsersStore } from '../store'
+// import { UsersStore } from '../store'
 const error = require('../utils/snError');
+import jwt_decode from 'jwt-decode'
 // import jwt from 'jsonwebtoken'
 
 export default async (ctx, next) => {//鉴权
     try {
-        if(ctx.headers['token']){
-            const token = ctx.headers['token']
-            const UsersModel = new UsersStore()
-            const userinfo = await UsersModel.findUser(token)
-            if(userinfo){
-                Object.assign(ctx.request.body,userinfo)
+        if(ctx.headers['authorization']){
+            const token = ctx.headers['authorization']
+            const userinfo = JSON.stringify(jwt_decode(token))
+            console.log(JSON.parse(userinfo))
+            const { principal:{username} } = JSON.parse(userinfo)
+            if(userinfo&&username){
+                // Object.assign(ctx.request.body,userinfo)
+                // console.log(userinfo)
                 return next()
             } else {
                 ctx.response.body = constant.NO_AUTH;

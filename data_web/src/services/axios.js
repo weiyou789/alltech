@@ -30,6 +30,10 @@ axios.interceptors.request.use(
             })
         }
         showLoading()
+        const token = localStorage.getItem('token')
+        if (token) {
+            config.headers['Authorization'] = token
+        }
         return config
     },
     error => {
@@ -39,9 +43,10 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
     response => {
-        if (response.data.code && response.data.code !== -1) {
+        if (response.data.code && response.data.code === -5) {
             hideLoading()
-            message.warn(response.data.message)
+            message.warn(response.data.desc)
+            window.location.href = '/'
             return Promise.reject(response)
         }else{
             hideLoading()
@@ -56,9 +61,10 @@ axios.interceptors.response.use(
         } else {
             // handle error
             console.log('error', error)
-            if (error.request.status === 0) {
+            if (error.response.status === 400) {
                 hideLoading()
-                return
+                message.warn(error.response.data.message)
+                return Promise.reject(error)
             }
             // TODO: 异常统一处理
             // store.dispatch(changeState(false))

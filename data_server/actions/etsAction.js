@@ -14,6 +14,8 @@ import jwt from 'jsonwebtoken'
 import moment from 'moment'
 import { EtsDfxStore } from '../store'
 import redis from '../utils/redis'
+import authCheck from '../utils/authCheck'
+
 let rule = new schedule.RecurrenceRule();
 rule.date = 1;
 rule.hour = 10;
@@ -415,15 +417,15 @@ const scheduleJobOpts = async (ctx,next) => {
 
 
 module.exports = function (app) {
-    app.get("/server/getEtsDfxAllList", getEtsDfxAllList);
-    app.get("/server/getEtsDfxTimeList", getEtsDfxTimeList);
-    app.get("/server/getEtsDfxMemList", getEtsDfxMemList);
-    app.get("/server/getEtsDfxTimeLively", getEtsDfxTimeLively);
-    app.get("/server/getEtsAllTimeLively", getEtsAllTimeLively);
-    app.get("/server/getEtsEvenyDayLively", getEtsEvenyDayLively);
-    app.get("/server/getEtsLookProductNumber", getEtsLookProductNumber);
-    app.get("/server/getEtsAllPagePath", getEtsAllPagePath);
-    app.get("/server/getEtsGroupAll", getEtsGroupAll);
-    app.post("/server/clearRedisCache", clearRedisCache);
-    app.post("/server/scheduleJobOpts", scheduleJobOpts);
+    app.get("/server/getEtsDfxAllList",authCheck, getEtsDfxAllList);
+    app.get("/server/getEtsDfxTimeList",authCheck, getEtsDfxTimeList);
+    app.get("/server/getEtsDfxMemList",authCheck, getEtsDfxMemList);
+    app.get("/server/getEtsDfxTimeLively",authCheck, getEtsDfxTimeLively);
+    app.get("/server/getEtsAllTimeLively",authCheck, getEtsAllTimeLively);
+    app.get("/server/getEtsEvenyDayLively",authCheck, getEtsEvenyDayLively);
+    app.get("/server/getEtsLookProductNumber",authCheck, getEtsLookProductNumber);
+    app.get("/server/getEtsAllPagePath",authCheck, getEtsAllPagePath);
+    app.get("/server/getEtsGroupAll",authCheck, getEtsGroupAll);
+    app.post("/server/clearRedisCache",authCheck, clearRedisCache);
+    app.post("/server/scheduleJobOpts",authCheck, scheduleJobOpts);
 };

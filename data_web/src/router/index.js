@@ -3,6 +3,8 @@ import React, {lazy, Suspense} from 'react';
 //HashRouter
 import { BrowserRouter, Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import routers from './config';
+
+
 function LoadingPage (props) {
 
     return (
@@ -22,6 +24,8 @@ function compose(...funcs) {
     return funcs.reduce((a, b) => (...args) => a(b(...args)))
 }
 const renderRoutes = routes => {
+    const token = localStorage.getItem('token')
+    console.log(token)
     if (!Array.isArray(routes)) {
         return null;
     }
@@ -45,13 +49,14 @@ const renderRoutes = routes => {
                     path={route.path}
                     exact={route.exact}
                     strict={route.strict}
-                    render={() => {
+                    render={(props) => {
                         const midRouter = [withRouter,lazy]
                         // const renderChildRoutes = renderRoutes(route.children);
                         const Wraprouter = compose(...midRouter)(route.component)
                         document.title = route.meta.title || "";
                         return <Suspense fallback={LoadingPage()}>
-                            <Wraprouter></Wraprouter>
+                            <Wraprouter route={route} {...props}></Wraprouter>
+                            {!token && <Redirect to='/'></Redirect>}
                         </Suspense>
                         // return renderChildRoutes;
                     }}

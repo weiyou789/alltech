@@ -21,3 +21,8 @@ export const getOrderEveryRepBuyRateAct = (params) => axios.get(`/server/getOrde
 
 export const getOrderGroupEveryRepBuyAct = (params) => axios.get(`/server/getOrderGroupEveryRepBuyAct`, { params })
 
+
+export const login = (params) => axios.post('https://staging-b2b-gateway.hosjoy.com/auth/login',params)
+
+export const tracking = (params) => axios.post('https://staging-hbp.hosjoy.com/ets/api/event-tracks',params)
+

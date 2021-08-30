@@ -1,7 +1,8 @@
 /**
  * Created by admin on 2021/7/19.
  */
-import { useReducer } from 'react';
+import React,{ useReducer } from 'react';
+const myContext = React.createContext();
 class Store {//简易中间件处理库
     constructor(dispatch,state){
         this.dispatch = dispatch
@@ -77,6 +78,19 @@ function createThunkMiddleware(extraArgument) {//中间件让useReducer的dispat
 }
 const thunk = createThunkMiddleware();
 
+const ContextProvider = props => {
+    const {INITIAL_STATE,reducer} = props.actions
+    const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+    const _store = new Store(dispatch,state) //把原生的dispatch传入到工厂里
+    const store = _store.applyMiddleware(thunk) //通过中间件把dispatch进行改造
+    const asyncDispatch = bindActionCreators(props.actions,store.dispatch)//把每个action处理成dispatch(test())形式
+    return (
+        <myContext.Provider value={{ state, asyncDispatch }}>
+            {props.children}
+        </myContext.Provider>
+    );
+};
+
 const useAsyDispatch = (actions) => {
     const {INITIAL_STATE,reducer} = actions
     const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
@@ -90,5 +104,6 @@ const useAsyDispatch = (actions) => {
 }
 
 export {
-    useAsyDispatch
+    useAsyDispatch,
+    ContextProvider
 }
