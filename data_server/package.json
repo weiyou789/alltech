@@ -7,7 +7,9 @@
     "DEV": "cross-env NODE_ENV=DEV nodemon app",
     "DEVETS": "cross-env NODE_ENV=DEVETS nodemon app",
     "PRDETS": "cross-env NODE_ENV=PRDETS nodemon app",
-    "PRD": "cross-env NODE_ENV=PRD node app"
+    "PRD": "cross-env NODE_ENV=PRD node app",
+    "pm2PREW":"pm2 start pm2.json --env development",
+    "pm2PRD":"pm2 start pm2.json"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
