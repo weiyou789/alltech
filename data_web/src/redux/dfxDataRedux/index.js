@@ -109,7 +109,7 @@ export const getOrderGroupEveryRepBuyData = (params) => async (dispatch,state) =
         result.map(item=>item.dm),
         result.map(item=>item.rm)
     ]
-    let legendData = ['购买会员数', '复购会员数', '购买企业会员数', '复购企业会员数']
+    let legendData = ['购买企业会员数', '复购企业会员数', '购买会员数', '复购会员数']
     let seriesData = legendData.map((item,index)=>{
         return {
             name:item,
