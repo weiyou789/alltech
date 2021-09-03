@@ -192,7 +192,8 @@ const getEtsLookProductNumber = async (ctx,next) => {
         let last = _.last(_data)//获取缓存数据的最后一位
         let listAll = []
         if(type==='dfx'){
-            if(data){
+            listAll = await EtsModel.getEtsDfxLookProductNumberMtd({startTime,endTime})
+            /*if(data){
                 if(new Date(endTime).getTime()>new Date(last._id).getTime()){//如果当前传过来的日期大于缓存数据最后一位的日期，直接到库里获取
                     listAll = await EtsModel.getEtsDfxLookProductNumberMtd({startTime,endTime})
                 } else {//否则从缓存数据里截取当前传过来的日期的数据
@@ -201,10 +202,11 @@ const getEtsLookProductNumber = async (ctx,next) => {
             } else {//如果缓存里没有数据，直接到库里获取数组并且存入到缓存里
                 listAll = await EtsModel.getEtsDfxLookProductNumberMtd({startTime,endTime})
                 redis.set('dfx', JSON.stringify(listAll));
-            }
+            }*/
 
         } else if(type==='min') {
-            if(data){
+            listAll = await EtsModel.getEtsMinLookProductNumberMtd({startTime,endTime})
+            /*if(data){
                 if(new Date(endTime).getTime()>new Date(last._id).getTime()){
                     listAll = await EtsModel.getEtsMinLookProductNumberMtd({startTime,endTime})
                 } else {
@@ -214,9 +216,29 @@ const getEtsLookProductNumber = async (ctx,next) => {
             } else {
                 listAll = await EtsModel.getEtsMinLookProductNumberMtd({startTime,endTime})
                 redis.set('min', JSON.stringify(listAll));
-            }
+            }*/
         } else if(type==='all'){
-            if(data){
+            let listAll1 = await EtsModel.getEtsDfxLookProductNumberMtd({startTime,endTime})
+            let listAll2 = await EtsModel.getEtsMinLookProductNumberMtd({startTime,endTime})
+            if(listAll2.length>0&&listAll1.length>0){
+                listAll = listAll1.map((item,index)=>{
+                    let arr = item.spuCodes
+                    listAll2.forEach((item1,index1)=>{
+                        if(item._id.toString()===item1._id.toString()){
+                            let arr1 = item.spuCodes
+                            let arr2 = item1.spuCodes
+                            arr = Array.from(new Set(arr1.concat(arr2)))
+                        }
+                    })
+                    return {
+                        _id:item._id,
+                        spuCodes:arr,
+                        lookNum:arr.length
+                    }
+                })
+                redis.set('all', JSON.stringify(listAll));
+            }
+            /*if(data){
                 if(new Date(endTime).getTime()>new Date(last._id).getTime()){
                     let listAll1 = await EtsModel.getEtsDfxLookProductNumberMtd({startTime,endTime})
                     let listAll2 = await EtsModel.getEtsMinLookProductNumberMtd({startTime,endTime})
@@ -261,7 +283,7 @@ const getEtsLookProductNumber = async (ctx,next) => {
                     })
                     redis.set('all', JSON.stringify(listAll));
                 }
-            }
+            }*/
         }
         ctx.body = Object.assign({ result:listAll}, constant.SUCCESS)
         return next();

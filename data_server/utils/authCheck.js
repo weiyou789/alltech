@@ -9,7 +9,7 @@ export default async (ctx, next) => {//鉴权
         if(ctx.headers['authorization']){
             const token = ctx.headers['authorization']
             const userinfo = JSON.stringify(jwt_decode(token))
-            console.log(JSON.parse(userinfo))
+            // console.log(JSON.parse(userinfo))
             const { principal:{username} } = JSON.parse(userinfo)
             if(userinfo&&username){
                 // Object.assign(ctx.request.body,userinfo)

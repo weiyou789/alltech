@@ -2,6 +2,7 @@ import MongoStore from "./MongoStore";
 import getEtsDfxModel from "../schema/etsDfxList";
 import getEtsMinModel from "../schema/etsMinList";
 import getEtsGroupModel from "../schema/etsGroupList";
+import moment from 'moment';
 
 export default class EtsDfxStore extends MongoStore {
                     constructor() {
@@ -104,10 +105,12 @@ export default class EtsDfxStore extends MongoStore {
 
                     getEtsDfxLookProductNumberMtd(query){
                         const { startTime, endTime } = query
+                        const _startTime = moment(startTime).startOf('month').format('YYYY-MM-DD HH:mm:ss')
+                        const _endTime = moment(endTime).endOf('month').format('YYYY-MM-DD HH:mm:ss')
                         return this.EtsDfxModel
                             .aggregate([
                                 { $match: {
-                                    create_time: { $gte: new Date(startTime), $lt: new Date(endTime) },
+                                    create_time: { $gte: new Date(_startTime), $lt: new Date(_endTime) },
                                     event: 999,
                                     goodsCode: {
                                         $nin: [null, ""]

@@ -4,6 +4,9 @@
 let log4js = require('log4js');
 
 log4js.configure({
+    "pm2": true,
+    "replaceConsole":false,
+    "disableClustering": true,
     "appenders": {
         "console": {
             "type": "console"
