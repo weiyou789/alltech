@@ -143,7 +143,17 @@ const getOrderGroupEveryRepBuyMtd = async (ctx,next) => {
             let rm = []
             let dm_bus = 0;
             let rm_bus = 0;
-            for (let i = 0; i < dm.length; i++) {
+            let tempArr = [];
+
+            m.forEach(item=>{
+                if(tempArr.includes(item)&&!rm.includes(item)){
+                    rm.push(item);
+                } else {
+                    tempArr.push(item);
+                }
+            })
+
+            /*for (let i = 0; i < dm.length; i++) {
                 let v = dm[i]
                 let p = 0
                 for (let j = 0; j < m.length; j++) {
@@ -155,7 +165,7 @@ const getOrderGroupEveryRepBuyMtd = async (ctx,next) => {
                         break
                     }
                 }
-            }
+            }*/
 
             dm.forEach((item,index)=>{
                 if(_list3.includes(item)){
