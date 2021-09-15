@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {hbpUrl, b2bUrl, javaUrl} from './config'
 
 
 export const findPostList = (params) => axios.get(`/common/region/provinces/nesting`, { params })
@@ -22,7 +23,11 @@ export const getOrderEveryRepBuyRateAct = (params) => axios.get(`/getOrderEveryR
 export const getOrderGroupEveryRepBuyAct = (params) => axios.get(`/getOrderGroupEveryRepBuyAct`, { params })
 
 
-export const login = (params) => axios.post('https://staging-b2b-gateway.hosjoy.com/auth/login',params)
+export const getOrderEveryMonthRepBuyRateAct = (params) => axios.get(javaUrl+'/getOrderEveryMonthRepBuyRateAct',{params})
 
-export const tracking = (params) => axios.post('https://staging-hbp.hosjoy.com/ets/api/event-tracks',params)
+export const getOrderNextEveryMonthRepBuyRateAct = (params) => axios.get(javaUrl+'/getOrderNextEveryMonthRepBuyRateAct',{params})
+
+export const login = (params) => axios.post(b2bUrl + '/auth/login',params)
+
+export const tracking = (params) => axios.post(hbpUrl + '/ets/api/event-tracks',params)
 

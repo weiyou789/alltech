@@ -106,10 +106,10 @@ const DfxData = () => {
     const getOrderGroupEveryRepBuy = async(e,i,type) => {//获取会员购买数据(折线图)
         const { dateTimeArr } = dateTime
         const { activesArr } = actives
-        if(activesArr[type]==='next'){
+        /*if(activesArr[type]==='next'){
             message.info('还没开发好，先等等吧')
             return
-        }
+        }*/
         if(dateTimeArr[i].startMonth&&dateTimeArr[i].endMonth&&activesArr[type]){
             renderLoading(i,true)
             const params = {...dateTimeArr[i],type:activesArr[type]}
@@ -229,20 +229,20 @@ const DfxData = () => {
                 <li>
                     <div className="opts">
                         <div className="btn">
-                            <Button loading={loadings.loadingsArr[2]} style={{marginRight:'20px'}} onClick={(e)=>getOrderRate(e,2,1)} type="primary">获取当月会员复购数据</Button>
-                            <Button loading={loadings.loadingsArr[2]} onClick={(e)=>getOrderRate(e,2,2)} type="primary">获取次月会员复购数据</Button>
+                            <Button loading={loadings.loadingsArr[2]} style={{marginRight:'20px'}} onClick={(e)=>getOrderRate(e,2,1)} type="primary">获取会员复购数据</Button>
+                            <Button loading={loadings.loadingsArr[2]} onClick={(e)=>getOrderRate(e,2,2)} type="primary">获取会员回购数据</Button>
                         </div>
                         <DatePicker
                             onChange={(date,dateString)=>dateSelect(date,dateString,2)}
                             picker="month"
                         />
                     </div>
-                    <h2>当月复购率or次月复购率：{orderData.rate}</h2>
-                    <h2>当月企业会员复购率or次月企业会员复购率：{orderData.rate_bus}</h2>
-                    <h2>当月复购会员数or当月购买在次月也购买会员数：{orderData.list1}</h2>
-                    <h2>当月复购企业会员数or当月购买在次月也购买企业会员数：{orderData.list1_bus}</h2>
-                    <h2>当月购买会员数：{orderData.list2}</h2>
-                    <h2>当月购买企业会员数：{orderData.list2_bus}</h2>
+                    <h2>复购率or回购率：{orderData.rate}</h2>
+                    <h2>企业会员复购率or企业会员回购率：{orderData.rate_bus}</h2>
+                    <h2>所有会员复购数or所有会员回购数：{orderData.list1}</h2>
+                    <h2>企业会员复购数or企业会员回购数：{orderData.list1_bus}</h2>
+                    <h2>所有会员购买数：{orderData.list2}</h2>
+                    <h2>企业会员购买数：{orderData.list2_bus}</h2>
                 </li>
 
                 <li>
@@ -252,8 +252,8 @@ const DfxData = () => {
                         </div>
                         <div className="select">
                             <Select defaultValue="now" style={{ width: 200 }} onSelect={(type)=>typeSelect(type,0)}>
-                                <Option value="now">当月会员复购数据</Option>
-                                <Option value="next">次月会员复购数据</Option>
+                                <Option value="now">会员复购数据</Option>
+                                <Option value="next">会员回购数据</Option>
                             </Select>
                         </div>
                         <RangePicker

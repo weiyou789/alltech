@@ -1,4 +1,4 @@
-import { getEtsAllTimeLively,getEtsAllPagePath,getOrderRepBuyRateAct,getOrderEveryRepBuyRateAct,getOrderGroupEveryRepBuyAct,getEtsEvenyDayLively,getEtsLookProductNumber } from '../../services/api'
+import { getEtsAllTimeLively,getEtsAllPagePath,getOrderRepBuyRateAct,getOrderEveryRepBuyRateAct,getEtsEvenyDayLively,getEtsLookProductNumber,getOrderEveryMonthRepBuyRateAct,getOrderNextEveryMonthRepBuyRateAct } from '../../services/api'
 import {
     GET_ALL_TIME_LIVELY,
     GET_ALL_PAGE_PATH,
@@ -100,16 +100,29 @@ export const getOrderEveryRepBuyRateData = (params) => async (dispatch,state) =>
 
 export const getOrderGroupEveryRepBuyData = (params) => async (dispatch,state) => {
     console.log(params)
-    const { data } = await getOrderGroupEveryRepBuyAct(params)
-    const { result } = data
-    let xAxisData = result.map(item=>item.d)
+    const { type } = params
+    let _data = '';
+    let legendData = '';
+    if(type==="now"){
+        const { data } = await getOrderEveryMonthRepBuyRateAct(params);
+        legendData = ['企业会员购买数', '企业会员复购数', '所有会员购买数', '所有会员复购数']
+        _data =data;
+    } else {
+        const { data } = await getOrderNextEveryMonthRepBuyRateAct(params);
+        legendData = ['企业会员购买数', '企业会员回购数', '所有会员购买数', '所有会员回购数']
+        _data =data;
+    }
+    // const { data } = await getOrderEveryMonthRepBuyRateAct(params);
+    // const { result } = data
+    console.log(_data)
+    let xAxisData = _data.map(item=>item.currentMonth)
     let dataArr = [
-        result.map(item=>item.dm_bus),
-        result.map(item=>item.rm_bus),
-        result.map(item=>item.dm),
-        result.map(item=>item.rm)
+        _data.map(item=>item.buyBusMemListCount),
+        _data.map(item=>item.buyRepBusMemListCount),
+        _data.map(item=>item.buyMemListCount),
+        _data.map(item=>item.buyRepMemListCount)
     ]
-    let legendData = ['购买企业会员数', '复购企业会员数', '购买会员数', '复购会员数']
+    //let legendData = ['购买企业会员数', '复购企业会员数', '购买会员数', '复购会员数']
     let seriesData = legendData.map((item,index)=>{
         return {
             name:item,
